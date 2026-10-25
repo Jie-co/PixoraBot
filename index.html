@@ -18,27 +18,50 @@ header {
   font-size: 24px;
   font-weight: bold;
 }
-main { padding: 100px 20px; }
-h1 { font-size: 44px; }
-p { color: #667085; line-height: 1.8; }
-button {
+main {
+  padding: 100px 20px;
+}
+h1 {
+  font-size: 44px;
+}
+p {
+  color: #667085;
+  line-height: 1.8;
+}
+.download {
+  display: inline-block;
   background: #2563eb;
   color: white;
-  border: none;
   padding: 15px 35px;
   border-radius: 10px;
   font-size: 17px;
+  text-decoration: none;
+  cursor: pointer;
 }
-footer { padding: 30px; color: #98a2b3; }
+.download:hover {
+  background: #1d4ed8;
+}
+footer {
+  padding: 30px;
+  color: #98a2b3;
+}
 </style>
 </head>
 <body>
+
 <header>PixoraBot</header>
+
 <main>
-<h1>让截图更简单</h1>
-<p>轻量、快速、简洁的 Windows 截图工具</p>
-<button disabled>即将开放下载</button>
+  <h1>让截图更简单</h1>
+  <p>轻量、快速、简洁的 Windows 截图工具</p>
+
+  <a class="download"
+     href="https://github.com/Jie-co/PixoraBot/releases/download/v1.0/PixoraBot.v1.0.exe">
+    免费下载 Windows 版
+  </a>
 </main>
+
 <footer>© 2026 PixoraBot</footer>
+
 </body>
 </html>
