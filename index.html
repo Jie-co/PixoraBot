@@ -59,9 +59,34 @@ footer {
      href="https://github.com/Jie-co/PixoraBot/releases/download/v1.0/PixoraBot.v1.0.exe">
     免费下载 Windows 版
   </a>
+  <p id="download-count" role="status" aria-live="polite">下载次数加载中…</p>
 </main>
 
 <footer>© 2026 PixoraBot</footer>
 
+<script>
+(async function () {
+  const label = document.getElementById('download-count');
+  const downloadUrl = document.querySelector('.download').href;
+  const match = new URL(downloadUrl).pathname.match(/^\/([^/]+)\/([^/]+)\/releases\/download\/([^/]+)\/(.+)$/);
+  if (!match) { label.textContent = '下载统计暂不可用'; return; }
+  const [, owner, repo, tag, filename] = match;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+  try {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/tags/${tag}`, {
+      headers: { Accept: 'application/vnd.github+json' }, signal: controller.signal
+    });
+    if (!response.ok) throw new Error('Statistics unavailable');
+    const release = await response.json();
+    const asset = release.assets.find(item => item.name === decodeURIComponent(filename));
+    if (!asset || !Number.isSafeInteger(asset.download_count) || asset.download_count < 0)
+      throw new Error('Missing count');
+    label.textContent = `当前版本已下载 ${asset.download_count.toLocaleString('zh-CN')} 次`;
+  } catch (error) {
+    label.textContent = '下载统计暂不可用，不影响下载';
+  } finally { clearTimeout(timeout); }
+})();
+</script>
 </body>
 </html>
