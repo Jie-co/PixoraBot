@@ -56,7 +56,7 @@ footer {
   <p>轻量、快速、简洁的 Windows 截图工具</p>
 
   <a class="download"
-     href="https://github.com/Jie-co/PixoraBot/releases/latest/download/PixoraBot.exe">
+     href="https://github.com/Jie-co/PixoraBot/releases/download/v2.0/PixoraBot.v2.0.exe">
     免费下载 Windows 版
   </a>
   <p id="download-count" role="status" aria-live="polite">下载次数加载中…</p>
@@ -70,12 +70,12 @@ footer {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
-    const response = await fetch('https://api.github.com/repos/Jie-co/PixoraBot/releases/latest', {
+    const response = await fetch('https://api.github.com/repos/Jie-co/PixoraBot/releases/tags/v2.0', {
       headers: { Accept: 'application/vnd.github+json' }, signal: controller.signal
     });
     if (!response.ok) throw new Error('Statistics unavailable');
     const release = await response.json();
-    const asset = release.assets.find(item => item.name === 'PixoraBot.exe');
+    const asset = release.assets.find(item => item.name === 'PixoraBot.v2.0.exe');
     if (!asset || !Number.isSafeInteger(asset.download_count) || asset.download_count < 0)
       throw new Error('Missing count');
     label.textContent = `当前版本已下载 ${asset.download_count.toLocaleString('zh-CN')} 次`;
