@@ -1,2 +1,2 @@
 # PixoraBot
-PixoraBot Officical Website
+PixoraBot Officical Website:  https://jie-co.github.io/PixoraBot/
